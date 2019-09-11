@@ -79,8 +79,8 @@ router.delete('/:id', (req, res) => {
 
 router.get('/:id/posts', (req, res) => {
   const { id } = req.params
-  db('posts as p').where({ user_id: id})
-  .join('users as u', 'u.id', '=', 'p.user_id')
+  db('users as u').where({ user_id: id})
+  .join('posts as p', 'u.id', '=', 'p.user_id')
   .where({ user_id: id})
   .then(posts=> res.status(200).json(posts))
   .catch(err => { res.status(400).json({ error: 'there was an error.'})})
